@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Student Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <!-- REGISTRATION FORM SECTION -->
+        <div id="form-section" class="card">
+            <div class="card-header">
+                <div class="header-text">
+                    <h1>Online Student Registration Form</h1>
+                    <p>Course & Technical Workshop Enrolment</p>
+                </div>
+                <button type="button" id="fillSampleBtn" class="btn-secondary btn-sm">Quick Fill Sample</button>
+            </div>
+
+            <form id="registrationForm" action="process.php" method="POST" novalidate>
+                <!-- Section 1: Personal Details -->
+                <div class="form-section-title">1. Personal Information</div>
+                
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="fullName">Full Name <span class="req">*</span></label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                        <span class="error-msg" id="err-fullName">Please enter your full name (minimum 3 characters).</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="usn">USN / Roll Number <span class="req">*</span></label>
+                        <input type="text" id="usn" name="usn" placeholder="e.g., 1RF24CS181" required>
+                        <span class="error-msg" id="err-usn">Please enter a valid USN / Roll Number.</span>
+                    </div>
+                </div>
+
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="req">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="student@college.edu.in" required>
+                        <span class="error-msg" id="err-email">Please enter a valid email address.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="req">*</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" maxlength="10" required>
+                        <span class="error-msg" id="err-phone">Enter a valid 10-digit Indian mobile number.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dob">Date of Birth <span class="req">*</span></label>
+                        <input type="date" id="dob" name="dob" required>
+                        <span class="error-msg" id="err-dob">Please select your date of birth.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Gender <span class="req">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="gender" value="Male" checked> Male</label>
+                        <label class="radio-label"><input type="radio" name="gender" value="Female"> Female</label>
+                        <label class="radio-label"><input type="radio" name="gender" value="Other"> Other</label>
+                    </div>
+                </div>
+
+                <!-- Section 2: Academic Details -->
+                <div class="form-section-title">2. Academic & Course Details</div>
+
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label for="department">Department / Branch <span class="req">*</span></label>
+                        <select id="department" name="department" required>
+                            <option value="">-- Select Department --</option>
+                            <option value="Computer Science & Engineering (CSE)">Computer Science & Engineering (CSE)</option>
+                            <option value="Information Science & Engineering (ISE)">Information Science & Engineering (ISE)</option>
+                            <option value="Artificial Intelligence & ML (AIML)">Artificial Intelligence & ML (AIML)</option>
+                            <option value="Electronics & Communication (ECE)">Electronics & Communication (ECE)</option>
+                            <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+                        </select>
+                        <span class="error-msg" id="err-department">Please select your department.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="semester">Current Semester <span class="req">*</span></label>
+                        <select id="semester" name="semester" required>
+                            <option value="">-- Select Semester --</option>
+                            <option value="1st Semester">1st Semester</option>
+                            <option value="2nd Semester">2nd Semester</option>
+                            <option value="3rd Semester">3rd Semester</option>
+                            <option value="4th Semester">4th Semester</option>
+                            <option value="5th Semester">5th Semester</option>
+                            <option value="6th Semester">6th Semester</option>
+                            <option value="7th Semester">7th Semester</option>
+                            <option value="8th Semester">8th Semester</option>
+                        </select>
+                        <span class="error-msg" id="err-semester">Please select your semester.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cgpa">Current CGPA / SGPA <span class="req">*</span></label>
+                        <input type="number" id="cgpa" name="cgpa" step="0.01" min="0" max="10" placeholder="e.g., 8.70" required>
+                        <span class="error-msg" id="err-cgpa">Enter a valid CGPA between 0.0 and 10.0.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="track">Workshop / Elective Track <span class="req">*</span></label>
+                    <select id="track" name="track" required>
+                        <option value="">-- Select Workshop Track --</option>
+                        <option value="Full Stack Web Development (MERN & PHP)">Full Stack Web Development (MERN & PHP)</option>
+                        <option value="Applied Machine Learning & Data Science">Applied Machine Learning & Data Science</option>
+                        <option value="Cloud Computing & DevOps Engineering">Cloud Computing & DevOps Engineering</option>
+                        <option value="Cybersecurity & Ethical Hacking">Cybersecurity & Ethical Hacking</option>
+                    </select>
+                    <span class="error-msg" id="err-track">Please choose a workshop track.</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Technical Skills Known <span class="req">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label"><input type="checkbox" name="skills[]" value="Python"> Python</label>
+                        <label class="checkbox-label"><input type="checkbox" name="skills[]" value="C / C++"> C / C++</label>
+                        <label class="checkbox-label"><input type="checkbox" name="skills[]" value="Java"> Java</label>
+                        <label class="checkbox-label"><input type="checkbox" name="skills[]" value="HTML/CSS/JS"> HTML/CSS/JS</label>
+                        <label class="checkbox-label"><input type="checkbox" name="skills[]" value="PHP & MySQL"> PHP & MySQL</label>
+                        <label class="checkbox-label"><input type="checkbox" name="skills[]" value="Linux / Git"> Linux / Git</label>
+                    </div>
+                    <span class="error-msg" id="err-skills">Please select at least one technical skill.</span>
+                </div>
+
+                <!-- Section 3: Address Details -->
+                <div class="form-section-title">3. Address & Additional Details</div>
+
+                <div class="form-group">
+                    <label for="address">Permanent / Communication Address <span class="req">*</span></label>
+                    <textarea id="address" name="address" rows="3" placeholder="Enter house/flat no, street, area, city, state, PIN code" required></textarea>
+                    <span class="error-msg" id="err-address">Please enter your complete address.</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label declaration-box">
+                        <input type="checkbox" id="declaration" name="declaration" required>
+                        <span>I hereby declare that all the information furnished above is true and correct to the best of my knowledge.</span>
+                    </label>
+                    <span class="error-msg" id="err-declaration">You must accept the declaration before submitting.</span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="reset" id="resetBtn" class="btn-outline">Reset Form</button>
+                    <button type="submit" id="submitBtn" class="btn-primary">Submit Application</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- SUBMISSION OUTPUT / DISPLAY PAGE (For Live Preview / GitHub Pages fallback) -->
+        <div id="receipt-section" class="card" style="display: none;">
+            <div class="receipt-banner">
+                <h2>Official Registration Acknowledgement</h2>
+                <p>Application Submitted Successfully</p>
+            </div>
+
+            <div class="receipt-body">
+                <div class="receipt-meta">
+                    <div><strong>Submission Date:</strong> <span id="out-date"></span></div>
+                    <div><strong>Status:</strong> <span class="status-badge">Confirmed & Verified</span></div>
+                </div>
+
+                <h3 class="receipt-table-heading">Applicant Information Summary</h3>
+                <table class="receipt-table">
+                    <tbody>
+                        <tr>
+                            <th>Full Name</th>
+                            <td id="out-fullName"></td>
+                            <th>USN / Roll No.</th>
+                            <td id="out-usn"></td>
+                        </tr>
+                        <tr>
+                            <th>Email Address</th>
+                            <td id="out-email"></td>
+                            <th>Phone Number</th>
+                            <td id="out-phone"></td>
+                        </tr>
+                        <tr>
+                            <th>Date of Birth</th>
+                            <td id="out-dob"></td>
+                            <th>Gender</th>
+                            <td id="out-gender"></td>
+                        </tr>
+                        <tr>
+                            <th>Department</th>
+                            <td id="out-department"></td>
+                            <th>Semester & CGPA</th>
+                            <td id="out-sem-cgpa"></td>
+                        </tr>
+                        <tr>
+                            <th>Selected Track</th>
+                            <td colspan="3" id="out-track" class="highlight-cell"></td>
+                        </tr>
+                        <tr>
+                            <th>Technical Skills</th>
+                            <td colspan="3" id="out-skills"></td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td colspan="3" id="out-address"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="receipt-footer-note">
+                    <p><strong>Note:</strong> Please save or print a copy of this acknowledgement slip for your academic records.</p>
+                </div>
+
+                <div class="form-actions no-print">
+                    <button type="button" id="backToFormBtn" class="btn-outline">Submit Another Response</button>
+                    <button type="button" onclick="window.print()" class="btn-primary">Print Application</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
